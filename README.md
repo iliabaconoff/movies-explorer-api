@@ -1,7 +1,7 @@
 # Бэкенд дипломной работы
 
 ## Адрес сервера
-https://api.moviefinder.momoredomains.xyz
+https://api.moviefinder.nomoredomains.xyz
 
 ## Роуты
 
