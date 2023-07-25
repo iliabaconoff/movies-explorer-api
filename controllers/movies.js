@@ -5,6 +5,7 @@ const Movie = require('../models/movieSchema');
 const BadRequest = require('../utils/responsesWithError/BadRequest');
 const NotFound = require('../utils/responsesWithError/NotFound');
 const Forbidden = require('../utils/responsesWithError/Forbidden');
+const {CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR, FORBIDDEN_ERROR} = require("../utils/variables");
 
 const getAllMovies = (req, res, next) => {
   Movie.find({})
@@ -16,7 +17,7 @@ const createMovie = (req, res, next) => {
   const { name, link } = req.body;
 
   Movie.create({ name, link, owner: req.user._id })
-    .then((movie) => res.status(201).send({ data: movie }))
+    .then((movie) => res.status(CREATE_SUCCESS_STATUS).send({ data: movie }))
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new BadRequest(err.message));
@@ -28,11 +29,11 @@ const createMovie = (req, res, next) => {
 
 const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    .orFail(new NotFound('ID фильма не существует'))
+    .orFail(new NotFound(NOT_FOUND_ID_ERROR))
     .then((foundMovie) => {
       if (!foundMovie.owner.equals(req.user._id)) {
         return next(
-          new Forbidden('Этот фильм добавил другой пользователь'),
+          new Forbidden(FORBIDDEN_ERROR),
         );
       }
 
@@ -47,7 +48,7 @@ const likeMovie = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .orFail(new NotFound('ID фильма не существует.'))
+    .orFail(new NotFound(NOT_FOUND_ID_ERROR))
     .then((movie) => res.send({ data: movie }))
     .catch((err) => next(err));
 };
@@ -58,7 +59,7 @@ const dislikeMovie = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .orFail(new NotFound('ID фильма не существует'))
+    .orFail(new NotFound(NOT_FOUND_ID_ERROR))
     .then((movie) => res.send({ data: movie }))
     .catch((err) => next(err));
 };

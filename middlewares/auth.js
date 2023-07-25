@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const { SECRET } = require('../utils/config');
 const Unauthorized = require('../utils/responsesWithError/Unauthorized');
+const {TOKEN_ERROR} = require("../utils/variables");
 
 const handleError = (res, req, next) => {
-  next(new Unauthorized('С токеном что-то не так.'));
+  next(new Unauthorized(TOKEN_ERROR));
 };
 
 module.exports = function authMiddleware(req, res, next) {

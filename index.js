@@ -12,21 +12,19 @@ const { MONGO_DB, PORT } = require('./utils/config');
 const { validateLogin, validateRegistration } = require('./utils/validationConfig');
 const { login, createUser } = require('./controllers/users');
 const NotFound = require('./utils/responsesWithError/NotFound');
+const {LIMITER} = require("./utils/limiter");
+const router = require("./routes");
 
 const app = express();
 app.use(cors);
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_DB);
 
-app.use(helmet);
+app.use(helmet());
+app.use(LIMITER);
+
 app.use(requestLogger);
-app.use('/signup', validateRegistration, createUser);
-app.use('/signin', validateLogin, login);
-
-app.use('/movies', auth, require('./routes/moviesRouter'));
-app.use('/users', auth, require('./routes/usersRouter'));
-
-app.use('*', auth, (req, res, next) => next(new NotFound('Страница не найдена')));
+app.use(router);
 
 app.use(errorLogger);
 app.use(errors());

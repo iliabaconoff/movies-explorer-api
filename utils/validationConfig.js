@@ -5,7 +5,7 @@ const regexp = /(http:\/\/(?:www.|(?!www))[A-z0-9-]+\.[^\s]+)|(https:\/\/(?:www.
 const validateUserUpdate = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    about: Joi.string().min(2).max(30).required(),
+    email: Joi.string().required().email(),
   }),
 });
 
@@ -18,7 +18,7 @@ const validateLogin = celebrate({
 
 const validateRegistration = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().min(7).required().email(),
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
     name: Joi.string().min(2).max(30).required(),
   }),

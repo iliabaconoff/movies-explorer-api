@@ -8,6 +8,7 @@ const User = require('../models/userSchema');
 const BadRequest = require('../utils/responsesWithError/BadRequest');
 const NotFound = require('../utils/responsesWithError/NotFound');
 const Duplicate = require('../utils/responsesWithError/Duplicate');
+const {DUPLICATED_USER_ERROR, CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR} = require("../utils/variables");
 
 const createUser = (req, res, next) => {
   const {
@@ -19,7 +20,7 @@ const createUser = (req, res, next) => {
       name, email, password: hash,
     }))
     .then(() => {
-      res.status(201).send({
+      res.status(CREATE_SUCCESS_STATUS).send({
         name,
         email,
       });
@@ -28,7 +29,7 @@ const createUser = (req, res, next) => {
       if (err instanceof ValidationError) {
         next(new BadRequest(err.message));
       } else if (err.code === 11000) {
-        next(new Duplicate('Пользователь с таким email уже зарегистрирован.'));
+        next(new Duplicate(DUPLICATED_USER_ERROR));
       } else {
         next(err);
       }
@@ -46,11 +47,13 @@ const updateUserData = (req, res, next) => {
   const { name, email } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
-    .orFail(new NotFound('Пользователь с таким ID не найден.'))
+    .orFail(new NotFound(NOT_FOUND_ID_ERROR))
     .then((updatedUserData) => res.send({ data: updatedUserData }))
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new BadRequest(err.message));
+      } else if (err.code === 11000) {
+        next(new Duplicate(DUPLICATED_USER_ERROR));
       } else {
         next(err);
       }

@@ -1,7 +1,27 @@
 const SECRET = 'ddf14c084150aa30553a3bb1132c952e';
-const MONGO_DB = process.env.MONGO_DB || 'mongodb://127.0.0.1:27017';
+const MONGO_DB = process.env.MONGO_DB || 'mongodb://127.0.0.1:27017/bitfilmsdb';
 const PORT = process.env.PORT || 3000;
 
+const productionPaths = [
+  'https://moviefinder.nomoredomains.xyz',
+  'http://moviefinder.nomoredomains.xyz',
+  'http://localhost:3000',
+  'http://localhost:3001',
+];
+
+const devPaths = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'https://moviefinder.nomoredomains.xyz',
+  'http://moviefinder.nomoredomains.xyz',
+];
+
+const GLOBAL_CFG = {
+  cors: {
+    allowOrigins: NODE_ENV === 'production' ? productionPaths : devPaths,
+  }
+}
+
 module.exports = {
-  SECRET, MONGO_DB, PORT,
+  SECRET, MONGO_DB, PORT, GLOBAL_CFG,
 };

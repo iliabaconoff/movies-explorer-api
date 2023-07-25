@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
+const {VALIDATION_URL_ERROR} = require("../utils/variables");
 
 const movieSchema = new Schema(
   {
@@ -28,7 +29,7 @@ const movieSchema = new Schema(
       required: true,
       validate: {
         validator: (v) => validator.isURL(v),
-        message: 'Некорректная ссылка',
+        message: VALIDATION_URL_ERROR,
       },
     },
     trailerLink: {
@@ -36,7 +37,7 @@ const movieSchema = new Schema(
       required: true,
       validate: {
         validator: (v) => validator.isURL(v),
-        message: 'Некорректная ссылка',
+        message: VALIDATION_URL_ERROR,
       },
     },
     thumbnail: {
@@ -44,7 +45,7 @@ const movieSchema = new Schema(
       required: true,
       validate: {
         validator: (v) => validator.isURL(v),
-        message: 'Некорректная ссылка',
+        message: VALIDATION_URL_ERROR,
 
       },
     },
