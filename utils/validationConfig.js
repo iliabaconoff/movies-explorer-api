@@ -11,7 +11,7 @@ const validateUserUpdate = celebrate({
 
 const validateLogin = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().min(7).required().email(),
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 });
