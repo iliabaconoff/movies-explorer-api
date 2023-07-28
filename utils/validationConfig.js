@@ -26,10 +26,17 @@ const validateRegistration = celebrate({
 
 const validateNewMovie = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).required(),
-    link: Joi.string().pattern(regexp).required(),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().length(4).required(),
     description: Joi.string().required(),
-    trailerLink: Joi.string().pattern(regexp).required(),
+    image: Joi.string().required().pattern(regexp),
+    trailerLink: Joi.string().required().pattern(regexp),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+    thumbnail: Joi.string().required().pattern(regexp),
+    movieId: Joi.number().required(),
   }),
 });
 
