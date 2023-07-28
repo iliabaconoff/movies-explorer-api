@@ -14,9 +14,7 @@ const getAllMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const { name, link } = req.body;
-
-  Movie.create({ name, link, owner: req.user._id })
+  Movie.create({ owner: req.user._id, ...req.body })
     .then((movie) => res.status(CREATE_SUCCESS_STATUS).send({ data: movie }))
     .catch((err) => {
       if (err instanceof ValidationError) {
