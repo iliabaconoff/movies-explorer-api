@@ -68,7 +68,7 @@ const movieSchema = new Schema(
     },
   },
   {
-    versionKey: true,
+    versionKey: false,
   },
 );
 
