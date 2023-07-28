@@ -16,10 +16,11 @@ app.use(cors);
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_DB);
 
+app.use(requestLogger);
+
 app.use(helmet());
 app.use(LIMITER);
 
-app.use(requestLogger);
 app.use(router);
 
 app.use(errorLogger);
