@@ -1,4 +1,4 @@
-const config = require('../utils/config')
+const config = require('../utils/config');
 
 const allowMethods = ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'];
 
@@ -13,7 +13,7 @@ function cors(req, res, next) {
   }
 
   if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', confog.cors.allowMethods.join(','));
+    res.header('Access-Control-Allow-Methods', allowMethods.join(','));
     res.header('Access-Control-Allow-Headers', requestHeaders);
     return res.end();
   }

@@ -2,18 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const auth = require('./middlewares/auth');
 
 const { errorLogger, requestLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const responseHandler = require('./middlewares/responseHandler');
 
 const { MONGO_DB, PORT } = require('./utils/config');
-const { validateLogin, validateRegistration } = require('./utils/validationConfig');
-const { login, createUser } = require('./controllers/users');
-const NotFound = require('./utils/responsesWithError/NotFound');
-const {LIMITER} = require("./utils/limiter");
-const router = require("./routes");
+const { LIMITER } = require('./utils/limiter');
+const router = require('./routes');
 
 const app = express();
 app.use(cors);

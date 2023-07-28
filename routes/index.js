@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { createUser, login } = require('../controllers/users');
 const auth = require('../middlewares/auth');
-const { NOT_FOUND_PATH_ERROR } = require('../utils/variables');
+const { NOT_FOUND_PATH_ERROR } = require('../utils/constants');
 const NotFound = require('../utils/responsesWithError/NotFound');
 const { validateLogin, validateRegister } = require('../utils/validationConfig');
 

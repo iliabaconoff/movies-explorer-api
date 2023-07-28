@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
-const {VALIDATION_URL_ERROR} = require("../utils/variables");
+const { VALIDATION_URL_ERROR } = require('../utils/constants');
 
 const movieSchema = new Schema(
   {

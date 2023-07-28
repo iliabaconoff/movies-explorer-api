@@ -8,7 +8,7 @@ const User = require('../models/userSchema');
 const BadRequest = require('../utils/responsesWithError/BadRequest');
 const NotFound = require('../utils/responsesWithError/NotFound');
 const Duplicate = require('../utils/responsesWithError/Duplicate');
-const {DUPLICATED_USER_ERROR, CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR} = require("../utils/variables");
+const { DUPLICATED_USER_ERROR, CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR } = require('../utils/constants');
 
 const createUser = (req, res, next) => {
   const {

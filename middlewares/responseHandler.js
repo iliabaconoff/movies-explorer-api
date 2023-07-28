@@ -1,4 +1,4 @@
-const {SERVER_ERROR} = require("../utils/variables");
+const { SERVER_ERROR } = require('../utils/constants');
 
 module.exports = (err, req, res, next) => {
   // если у ошибки нет статуса, выставляем 500

@@ -5,7 +5,7 @@ const Movie = require('../models/movieSchema');
 const BadRequest = require('../utils/responsesWithError/BadRequest');
 const NotFound = require('../utils/responsesWithError/NotFound');
 const Forbidden = require('../utils/responsesWithError/Forbidden');
-const {CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR, FORBIDDEN_ERROR} = require("../utils/variables");
+const { CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR, FORBIDDEN_ERROR } = require('../utils/constants');
 
 const getAllMovies = (req, res, next) => {
   Movie.find({})
