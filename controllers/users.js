@@ -8,7 +8,9 @@ const User = require('../models/userSchema');
 const BadRequest = require('../utils/responsesWithError/BadRequest');
 const NotFound = require('../utils/responsesWithError/NotFound');
 const Duplicate = require('../utils/responsesWithError/Duplicate');
-const { DUPLICATED_USER_ERROR, CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR } = require('../utils/constants');
+const {
+  DUPLICATED_USER_ERROR, CREATE_SUCCESS_STATUS, NOT_FOUND_ID_ERROR, DUPLICATE_STATUS,
+} = require('../utils/constants');
 
 const createUser = (req, res, next) => {
   const {
@@ -28,7 +30,7 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new BadRequest(err.message));
-      } else if (err.code === 11000) {
+      } else if (err.code === DUPLICATE_STATUS) {
         next(new Duplicate(DUPLICATED_USER_ERROR));
       } else {
         next(err);

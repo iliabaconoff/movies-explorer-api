@@ -13,6 +13,7 @@ const { LIMITER } = require('./utils/limiter');
 const router = require('./routes');
 
 const app = express();
+app.use(express.json());
 app.use(cors);
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_DB);

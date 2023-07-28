@@ -1,5 +1,9 @@
-const config = require('../utils/config');
-
+const allowOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://moviefinder.nomoredomains.xyz',
+  'https://moviefinder.nomoredomains.xyz',
+];
 const allowMethods = ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'];
 
 function cors(req, res, next) {
@@ -7,7 +11,7 @@ function cors(req, res, next) {
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
 
-  if (config.cors.allowOrigins.includes(origin)) {
+  if (allowOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
   }

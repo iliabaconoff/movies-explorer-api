@@ -8,8 +8,8 @@ const { validateLogin, validateRegistration } = require('../utils/validationConf
 router.use('/users', auth, require('./usersRouter'));
 router.use('/movies', auth, require('./moviesRouter'));
 
-router.post('/signin', validateLogin, login);
-router.post('/signup', validateRegistration, createUser);
+router.use('/signin', validateLogin, login);
+router.use('/signup', validateRegistration, createUser);
 
 router.use('*', auth, (req, res, next) => next(new NotFound(NOT_FOUND_PATH_ERROR)));
 
